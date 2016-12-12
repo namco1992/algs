@@ -49,7 +49,6 @@ public class Percolation {
     public boolean percolates() {
         return uf.connected(0, size - 1);
     }
-    // test client (optional)
     public static void main(String[] args) {
 
     }
@@ -68,6 +67,14 @@ public class Percolation {
         validate(col);
         return nValue*(row - 1) + col;
     }
+
+    /**
+     * TODO: findNeighours is not a good idea, change it to FOUR situations.
+     * @param row
+     * @param col
+     * @param index
+     * @return
+     */
     private int[] findNeighbours(int row, int col, int index) {
         int[] neighbours;
         if (row == 1 && col == 1) neighbours = new int[]{index + 1, index + nValue};
