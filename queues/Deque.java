@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -28,7 +29,11 @@ public class Deque<Item> implements Iterable<Item> {
     public int size() {
         return N;
     }
+    private boolean checkItem(Item item) {
+        return item != null;
+    }
     public void addFirst(Item item) {
+        if (!checkItem(item)) throw new NullPointerException("Item is null.");
         Node oldFirst = first;
         first = new Node();
         first.item = item;
@@ -39,6 +44,7 @@ public class Deque<Item> implements Iterable<Item> {
         N++;
     }
     public void addLast(Item item) {
+        if (!checkItem(item)) throw new NullPointerException("Item is null.");
         Node oldLast = last;
         last = new Node();
         last.item = item;
@@ -74,8 +80,9 @@ public class Deque<Item> implements Iterable<Item> {
         public boolean hasNext() {
             return current != null;
         }
-        public void remove() {}
+        public void remove() {throw new UnsupportedOperationException("remove is not supported.");}
         public Item next() {
+            if (!hasNext()) {throw new NoSuchElementException();}
             Item item = current.item;
             current = current.next;
             return item;
@@ -93,11 +100,15 @@ public class Deque<Item> implements Iterable<Item> {
         q.addFirst("B");
         StdOut.println(q.first.item);
         StdOut.println(q.first.next.item);
+        q.addLast("C");
+        for (String x: q) StdOut.println(x);
+        q.removeFirst();
+        StdOut.println(q.size());
+        StdOut.println(q.isEmpty());
+        for (String x: q) StdOut.println(x);
         q.removeLast();
         StdOut.println(q.size());
         StdOut.println(q.isEmpty());
-        q.removeLast();
-        StdOut.println(q.size());
-        StdOut.println(q.isEmpty());
+        for (String x: q) StdOut.println(x);
     }
 }
